@@ -86,9 +86,10 @@ def write_report(frame, destination, language):
         summary.write_row(6,0,text["headers"],head)
         for index,row in enumerate(grouped.itertuples(index=False),7):
             excel_row=index+1
+            criterion=f'"="&SUBSTITUTE(SUBSTITUTE(SUBSTITUTE(A{excel_row},"~","~~"),"*","~*"),"?","~?")'
             summary.write_string(index,0,row.product,basic)
-            summary.write_formula(index,1,f"=SUMIFS({quoted}!D6:D{end},{quoted}!C6:C{end},A{excel_row})",integer,int(row.quantity))
-            summary.write_formula(index,2,f"=SUMIFS({quoted}!F6:F{end},{quoted}!C6:C{end},A{excel_row})",money,int(row.gross_cents)/100)
+            summary.write_formula(index,1,f"=SUMIFS({quoted}!D6:D{end},{quoted}!C6:C{end},{criterion})",integer,int(row.quantity))
+            summary.write_formula(index,2,f"=SUMIFS({quoted}!F6:F{end},{quoted}!C6:C{end},{criterion})",money,int(row.gross_cents)/100)
         chart=workbook.add_chart({"type":"bar"})
         chart.add_series({"name":text["total"],"categories":[text["summary"],7,0,6+len(grouped),0],"values":[text["summary"],7,2,6+len(grouped),2],"fill":{"color":"#477667"},"border":{"none":True}})
         chart.set_title({"name":text["chart"],"name_font":{"name":"Arial","size":11}})
