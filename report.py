@@ -22,6 +22,8 @@ def load_sales(source):
             raise ValueError(f"Blank {column} / Boş alan")
     if frame["order_id"].duplicated().any():
         raise ValueError("Duplicate entry ID / Tekrarlanan kayıt kimliği")
+    if frame["date"].str.strip().eq("").any():
+        raise ValueError("Date is required / Tarih gerekli")
     frame["date"] = pd.to_datetime(frame["date"], format="%Y-%m-%d", errors="raise")
     quantities = pd.to_numeric(frame["quantity"], errors="raise")
     if ((quantities <= 0) | (quantities > 1_000_000) | (quantities % 1 != 0)).any():

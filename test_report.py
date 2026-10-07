@@ -21,6 +21,8 @@ def test_bad_input(tmp_path,row):
 def test_duplicate_ids(tmp_path):
     source=tmp_path/"dupe.csv";source.write_text("order_id,date,product,quantity,unit_price\nX,2026-10-01,Latte,1,10\nX,2026-10-01,Latte,2,10",encoding="utf-8")
     with pytest.raises(ValueError,match="Duplicate"):load_sales(source)
+    source.write_text("order_id,date,product,quantity,unit_price\nX,,Latte,1,10",encoding="utf-8")
+    with pytest.raises(ValueError,match="Date"):load_sales(source)
 
 
 @pytest.mark.parametrize("language,total_sheet,raw_sheet",[("tr","Özet","Satışlar"),("en","Summary","Sales")])
