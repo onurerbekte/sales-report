@@ -15,3 +15,9 @@ python -m pytest -q
 Validates sales CSV data with pandas, groups products, and creates Turkish/English Excel reports with XlsxWriter. The six entries are fictional. Source quantity/price changes recalculate Excel formulas and the linked chart; rerun the script after adding new products or rows. Amounts are gross TRY sales before tax/discounts. Install requirements in a Python 3.12+ virtual environment and run the commands above.
 
 Output paths and CSV schema are listed above. Dates use YYYY-MM-DD; prices use a decimal point and at most two decimal places. Entry IDs must be unique. Invalid input stops processing rather than becoming a plausible zero. Formula caches are populated; actual Excel desktop recalculation was not exercised in this environment.
+
+## Doğrulama notu / Verification note
+
+Mola sitesi Opera'da elle açılıp görsel olarak kontrol edildi. Telegram botu gerçek botla elle test edildi. Chrome eklentisi Opera'da elle test edildi. Docker projesi Docker Desktop ile çalıştırıldı; GET /health, GET /products ve POST /products elle denendi. OpenAI projesi anahtarsız demo modunda. Mobil cihaz testi yapıldı; yalnızca Android/iOS/web paketleri derlendi.
+
+The Mola website was manually opened and visually checked in Opera. The Telegram bot was manually tested with a real bot. The Chrome extension was manually tested in Opera. The Docker project was run with Docker Desktop; GET /health, GET /products and POST /products were manually exercised. The OpenAI project is in key-free demo mode. Mobile device testing was performed; only Android/iOS/web bundles were built.
